@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    overflow: hidden;
+}
+
+body {
+    font-family: Consolas, "Courier New", monospace;
+}
+
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000000;
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 62%, black 100%);
+}
+
+.reactor-ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    pointer-events: none;
+}
+
+.reactor-ui h1 {
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+}
+
+.reactor-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: auto;
+}
+
+.reactor-controls button {
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.reactor-controls button:hover {
+    border-color: rgba(0, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 255, 255, 0.08);
+}
+
+.reactor-controls button.active {
+    border-color: rgba(0, 255, 255, 1);
+    color: rgba(0, 255, 255, 0.95);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+}
+
+.performance-hud {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 20;
+    display: none;
+    min-width: 170px;
+    border: 1px solid rgba(0, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.65);
+    color: rgba(0, 255, 255, 0.8);
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+    padding: 12px;
+    pointer-events: none;
+}
+
+.performance-hud.visible {
+    display: block;
+}
+
+.performance-hud span {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 640px) {
+    .reactor-ui {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .reactor-ui h1 {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+    }
+
+    .reactor-controls {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 6px;
+    }
+
+    .reactor-controls button {
+        font-size: 9px;
+        padding: 7px 8px;
+        letter-spacing: 0.08em;
+    }
+
+    .performance-hud {
+        left: 12px;
+        bottom: 12px;
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARTICLE REACTOR</title>
+    <link rel="stylesheet" href="particle-styles.css">
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="vignette"></div>
+
+    <header class="reactor-ui">
+        <h1>PARTICLE REACTOR</h1>
+
+        <div class="reactor-controls">
+            <button id="soundToggle" type="button">SOUND OFF</button>
+            <button id="connectionsToggle" type="button" class="active">CONNECTIONS ON</button>
+            <button id="themeToggle" type="button">NEON</button>
+        </div>
+    </header>
+
+    <aside id="performanceHud" class="performance-hud">
+        <p>FPS: <span id="fpsValue">0</span></p>
+        <p>PARTICLES: <span id="particleValue">0</span></p>
+        <p>THEME: <span id="themeValue">NEON</span></p>
+        <p>SOUND: <span id="soundValue">OFF</span></p>
+        <p>CONNECTIONS: <span id="connectionsValue">ON</span></p>
+    </aside>
+
+    <script src="particle-script.js"></script>
+</body>
+</html>

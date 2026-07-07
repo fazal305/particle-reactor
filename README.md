@@ -1,141 +1,98 @@
-# PARTICLE REACTOR
+# Particle Reactor
 
-A cinematic real-time particle simulation built with pure HTML, CSS, and vanilla JavaScript.
+A cinematic real-time particle simulation built with HTML5 Canvas, CSS, and vanilla JavaScript.
 
-PARTICLE REACTOR is an interactive visual engineering project inspired by sci-fi HUD systems, music visualizers, fluid simulations, and living digital organisms. The entire experience runs inside a single HTML5 Canvas with no frameworks or libraries.
+Particle Reactor is an interactive visual experiment inspired by sci-fi HUD systems, audio visualizers, and physics-style motion. It runs fully in the browser with no frameworks or build tools.
 
----
-
-## LIVE DEMO
+## Live Demo
 
 https://fazal305.github.io/particle-reactor/
 
----
-
-## FEATURES
+## Features
 
 - Full-screen Canvas particle engine
-- 150 adaptive particles with fake 3D depth
-- Mouse magnetic field with orbit physics
-- Click explosions with ripple waves
-- Mobile touch support
-- Audio-reactive particle behavior
-- Bass pulse, mids swirl, treble flicker
+- Adaptive particle count for desktop and mobile
+- Mouse and touch magnetic field interaction
+- Click and tap explosion bursts
+- Expanding ripple effects
 - Dynamic particle connections
-- Motion trails
-- Cinematic background fog
-- Adaptive performance system
-- Hidden FPS / debug HUD
-- Ambient idle mode
-- Multiple visual themes
+- Motion trails and background fog
+- Three visual themes: Neon, Fire, and Matrix
+- Optional microphone-reactive motion
+- Bass pulse, mids swirl, and treble flicker effects
+- Hidden performance HUD
 - Edge wrapping simulation
-- Responsive mobile-first design
+- Responsive mobile-first layout
+- Reduced-motion support
 - Pure vanilla JavaScript
-- No libraries or frameworks
 
----
+## Controls
 
-## THEMES
+| Action             | Effect                                          |
+| ------------------ | ----------------------------------------------- |
+| Move mouse         | Pulls nearby particles into an orbit field      |
+| Click              | Spawns an explosion burst                       |
+| Touch move         | Controls the magnetic field on mobile           |
+| Touch tap          | Spawns an explosion burst on mobile             |
+| Sound button       | Requests microphone access for audio reactivity |
+| Connections button | Toggles particle connection lines               |
+| Theme button       | Switches between visual palettes                |
+| H key              | Shows or hides the performance HUD              |
 
-### NEON
-Cyberpunk cyan / purple / pink palette
+## Audio Reactivity
 
-### FIRE
-Red / orange / yellow energy palette
+Microphone access is optional. If permission is allowed, the simulation analyzes the audio spectrum:
 
-### MATRIX
-Classic green terminal-inspired palette
+- Bass pushes particles outward
+- Mid frequencies add orbital swirl
+- Treble increases brightness and flicker
 
----
+If microphone permission is denied, the simulation continues normally.
 
-## CONTROLS
-
-| Action | Effect |
-|---|---|
-| Move Mouse | Creates magnetic orbit field |
-| Click | Spawns explosion burst |
-| Touch Move | Mobile magnetic field |
-| Touch Tap | Mobile explosion |
-| SOUND ON | Enables microphone reactivity |
-| CONNECTIONS ON/OFF | Toggle particle lines |
-| THEME | Switch visual palettes |
-| H Key | Toggle hidden performance HUD |
-
----
-
-## AUDIO SPECTRUM SYSTEM
-
-The audio engine reacts differently depending on frequency range:
-
-- Bass frequencies push particles outward
-- Mid frequencies create orbital swirl motion
-- Treble frequencies increase brightness and flicker
-
-Microphone access is optional. If permission is denied, the simulation continues normally.
-
----
-
-## AMBIENT MODE
-
-If the user becomes inactive for a few seconds:
-
-- The reactor enters ambient mode
-- Particles drift into flowing formations
-- Motion becomes calmer and more cinematic
-
-Moving the mouse wakes the system back up instantly.
-
----
-
-## TECH STACK
+## Tech Stack
 
 - HTML5
 - CSS3
 - Vanilla JavaScript
 - Canvas API
 - Web Audio API
-- requestAnimationFrame()
+- `requestAnimationFrame`
 
----
-
-## PERFORMANCE OPTIMIZATIONS
-
-This project includes several real-time rendering optimizations:
-
-- distanceSquared calculations
-- adaptive particle count
-- lightweight glow rendering
-- particle cleanup system
-- reduced object allocation
-- requestAnimationFrame rendering loop
-- mobile performance balancing
-
----
-
-## WHAT I LEARNED
-
-This project helped me practice:
-
-- Particle systems
-- Real-time rendering
-- Canvas optimization
-- Audio visualization
-- Vector math
-- Orbit physics
-- Performance balancing
-- Animation loops
-- Mouse interaction systems
-- Responsive simulation design
-
----
-
-## PROJECT STRUCTURE
+## Project Structure
 
 ```text
 particle-reactor/
-│
-├── index.html
-├── particle-styles.css
-├── particle-script.js
-├── README.md
-└── LICENSE
+|-- index.html
+|-- particle-styles.css
+|-- particle-script.js
+|-- LICENSE
+`-- README.md
+```
+
+## What I Practiced
+
+- Canvas rendering loops
+- Particle system design
+- Vector movement and orbit force
+- Mouse and touch event handling
+- Audio spectrum analysis
+- Performance-aware animation
+- Responsive simulation behavior
+- UI overlays for interactive visual projects
+
+## Run Locally
+
+Open `index.html` in a browser.
+
+No dependencies, package installation, or build step are required.
+
+## Author
+
+Built by Fazal Abbas.
+
+- GitHub: https://github.com/fazal305
+- LinkedIn: https://www.linkedin.com/in/fazal-abbas-4653dg86
+
+## License
+
+This project is licensed under the MIT License.

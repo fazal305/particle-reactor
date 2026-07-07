@@ -1,144 +1,193 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    background: #000000;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
 }
 
 body {
-    font-family: Consolas, "Courier New", monospace;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: Consolas, "Courier New", monospace;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(0, 255, 255, 0.95);
+  outline-offset: 3px;
 }
 
 #particleCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000000;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
 }
 
 .vignette {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 62%, black 100%);
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 54%,
+      rgba(0, 0, 0, 0.92) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.28),
+      transparent 32%,
+      rgba(0, 0, 0, 0.34)
+    );
 }
 
 .reactor-ui {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 16px;
-    pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  pointer-events: none;
+}
+
+.reactor-title-block {
+  max-width: 360px;
 }
 
 .reactor-ui h1 {
-    font-size: clamp(12px, 2vw, 16px);
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.2em;
-    white-space: nowrap;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: clamp(12px, 2vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.reactor-title-block p {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
 }
 
 .reactor-controls {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  pointer-events: auto;
 }
 
 .reactor-controls button {
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    background: rgba(0, 0, 0, 0.28);
-    color: rgba(255, 255, 255, 0.5);
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    padding: 8px 10px;
-    cursor: pointer;
-    transition: 0.2s ease;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.34);
+  color: rgba(255, 255, 255, 0.58);
+  cursor: pointer;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
 .reactor-controls button:hover {
-    border-color: rgba(0, 255, 255, 0.9);
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.9);
+  background: rgba(0, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .reactor-controls button.active {
-    border-color: rgba(0, 255, 255, 1);
-    color: rgba(0, 255, 255, 0.95);
-    box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 1);
+  color: rgba(0, 255, 255, 0.95);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
 }
 
 .performance-hud {
-    position: fixed;
-    left: 16px;
-    bottom: 16px;
-    z-index: 20;
-    display: none;
-    min-width: 170px;
-    border: 1px solid rgba(0, 255, 255, 0.35);
-    background: rgba(0, 0, 0, 0.65);
-    color: rgba(0, 255, 255, 0.8);
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    line-height: 1.8;
-    padding: 12px;
-    pointer-events: none;
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 20;
+  display: none;
+  min-width: 190px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.68);
+  color: rgba(0, 255, 255, 0.8);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+  padding: 12px;
+  pointer-events: none;
 }
 
 .performance-hud.visible {
-    display: block;
+  display: block;
 }
 
 .performance-hud span {
-    color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.84);
 }
 
 @media (max-width: 640px) {
-    .reactor-ui {
-        align-items: flex-start;
-        padding: 12px;
-    }
+  .reactor-ui {
+    align-items: flex-start;
+    padding: 12px;
+  }
 
-    .reactor-ui h1 {
-        font-size: 11px;
-        letter-spacing: 0.14em;
-    }
+  .reactor-title-block p {
+    display: none;
+  }
 
-    .reactor-controls {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 6px;
-    }
+  .reactor-ui h1 {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
 
-    .reactor-controls button {
-        font-size: 9px;
-        padding: 7px 8px;
-        letter-spacing: 0.08em;
-    }
+  .reactor-controls {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 
-    .performance-hud {
-        left: 12px;
-        bottom: 12px;
-        font-size: 10px;
-    }
+  .reactor-controls button {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    padding: 7px 8px;
+  }
+
+  .performance-hud {
+    left: 12px;
+    bottom: 12px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vignette {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 58%,
+      rgba(0, 0, 0, 0.94) 100%
+    );
+  }
 }

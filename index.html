@@ -1,34 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARTICLE REACTOR</title>
-    <link rel="stylesheet" href="particle-styles.css">
-</head>
-<body>
-    <canvas id="particleCanvas"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A real-time Canvas particle reactor with magnetic mouse interaction, theme switching, and optional audio reactivity."
+    />
 
-    <div class="vignette"></div>
+    <title>Particle Reactor</title>
+    <link rel="stylesheet" href="particle-styles.css" />
+  </head>
+  <body>
+    <canvas
+      id="particleCanvas"
+      aria-label="Interactive particle reactor animation"
+    ></canvas>
+    <div class="vignette" aria-hidden="true"></div>
 
     <header class="reactor-ui">
-        <h1>PARTICLE REACTOR</h1>
+      <div class="reactor-title-block">
+        <h1>Particle Reactor</h1>
+        <p>Move, click, tap, or enable sound to disturb the field.</p>
+      </div>
 
-        <div class="reactor-controls">
-            <button id="soundToggle" type="button">SOUND OFF</button>
-            <button id="connectionsToggle" type="button" class="active">CONNECTIONS ON</button>
-            <button id="themeToggle" type="button">NEON</button>
-        </div>
+      <div class="reactor-controls" aria-label="Particle reactor controls">
+        <button id="soundToggle" type="button">Sound Off</button>
+        <button id="connectionsToggle" type="button" class="active">
+          Connections On
+        </button>
+        <button id="themeToggle" type="button">Neon</button>
+      </div>
     </header>
 
-    <aside id="performanceHud" class="performance-hud">
-        <p>FPS: <span id="fpsValue">0</span></p>
-        <p>PARTICLES: <span id="particleValue">0</span></p>
-        <p>THEME: <span id="themeValue">NEON</span></p>
-        <p>SOUND: <span id="soundValue">OFF</span></p>
-        <p>CONNECTIONS: <span id="connectionsValue">ON</span></p>
+    <aside
+      id="performanceHud"
+      class="performance-hud"
+      aria-label="Performance HUD"
+    >
+      <p>FPS: <span id="fpsValue">0</span></p>
+      <p>PARTICLES: <span id="particleValue">0</span></p>
+      <p>THEME: <span id="themeValue">NEON</span></p>
+      <p>SOUND: <span id="soundValue">OFF</span></p>
+      <p>CONNECTIONS: <span id="connectionsValue">ON</span></p>
     </aside>
 
     <script src="particle-script.js"></script>
-</body>
+  </body>
 </html>

@@ -14,6 +14,7 @@ const connectionsValue = document.getElementById("connectionsValue");
 
 const DESKTOP_PARTICLE_COUNT = 150;
 const MOBILE_PARTICLE_COUNT = 90;
+const REDUCED_MOTION_PARTICLE_COUNT = 55;
 const ATTRACTION_RADIUS = 140;
 const CONNECTION_RADIUS = 100;
 const EXPLOSION_COUNT = 30;
@@ -65,11 +66,17 @@ let canvasWidth = 0;
 let canvasHeight = 0;
 let themeIndex = 0;
 let fogTime = 0;
+let prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const themeNames = Object.keys(THEMES);
 
 /* Detects mobile screens and lowers particle count for smoother performance. */
 function updateAdaptiveParticleCount() {
+    if (prefersReducedMotion) {
+        settings.particleCount = REDUCED_MOTION_PARTICLE_COUNT;
+        return;
+    }
+
     settings.particleCount = window.innerWidth <= 768 ? MOBILE_PARTICLE_COUNT : DESKTOP_PARTICLE_COUNT;
 }
 
@@ -148,13 +155,17 @@ function rebalanceParticles() {
 function drawTrailFade() {
     ctx.save();
     ctx.globalCompositeOperation = "source-over";
-    ctx.fillStyle = `rgba(0, 0, 0, ${TRAIL_ALPHA})`;
+    ctx.fillStyle = `rgba(0, 0, 0, ${prefersReducedMotion ? 0.55 : TRAIL_ALPHA})`;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.restore();
 }
 
 /* Draws very subtle moving background fog. */
 function drawBackgroundFog() {
+    if (prefersReducedMotion) {
+        return;
+    }
+
     const palette = THEMES[settings.theme];
 
     fogTime += 0.004;
@@ -410,7 +421,9 @@ function drawConnections() {
 function spawnExplosion(x, y) {
     ripples.push(createRipple(x, y));
 
-    for (let i = 0; i < EXPLOSION_COUNT; i++) {
+    const explosionCount = prefersReducedMotion ? Math.floor(EXPLOSION_COUNT / 2) : EXPLOSION_COUNT;
+
+    for (let i = 0; i < explosionCount; i++) {
         particles.push(createParticle(x, y, true));
     }
 }
@@ -506,7 +519,17 @@ function animate(currentTime) {
 /* Requests microphone permission and connects it to an analyser node. */
 async function initAudio() {
     try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            throw new Error("Microphone access is not supported in this browser.");
+        }
+
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContext) {
+            throw new Error("Web Audio API is not supported in this browser.");
+        }
+
         const audioContext = new AudioContext();
         const microphoneSource = audioContext.createMediaStreamSource(stream);
         const analyser = audioContext.createAnalyser();
@@ -522,7 +545,7 @@ async function initAudio() {
     } catch (error) {
         settings.soundOn = false;
         audioData.active = false;
-        soundToggle.textContent = "SOUND OFF";
+        soundToggle.textContent = "Sound Off";
         soundToggle.classList.remove("active");
     }
 }
@@ -538,6 +561,7 @@ function setTheme(themeName) {
     }
 
     themeToggle.textContent = settings.theme;
+    themeValue.textContent = settings.theme;
 }
 
 /* Resizes the canvas and rebalances particles for desktop or mobile. */
@@ -628,15 +652,16 @@ function setupEventListeners() {
             await initAudio();
         }
 
-        soundToggle.textContent = settings.soundOn ? "SOUND ON" : "SOUND OFF";
+        soundToggle.textContent = settings.soundOn ? "Sound On" : "Sound Off";
         soundToggle.classList.toggle("active", settings.soundOn);
     });
 
     connectionsToggle.addEventListener("click", function () {
         settings.connectionsOn = !settings.connectionsOn;
 
-        connectionsToggle.textContent = settings.connectionsOn ? "CONNECTIONS ON" : "CONNECTIONS OFF";
+        connectionsToggle.textContent = settings.connectionsOn ? "Connections On" : "Connections Off";
         connectionsToggle.classList.toggle("active", settings.connectionsOn);
+        connectionsValue.textContent = settings.connectionsOn ? "ON" : "OFF";
     });
 
     themeToggle.addEventListener("click", function () {
@@ -647,6 +672,14 @@ function setupEventListeners() {
         }
 
         setTheme(themeNames[themeIndex]);
+    });
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    motionQuery.addEventListener("change", function (event) {
+        prefersReducedMotion = event.matches;
+        updateAdaptiveParticleCount();
+        rebalanceParticles();
     });
 }
 
